@@ -35,3 +35,36 @@
 - 현재 문제
     * 로그인 할 방법이 없음
     * 현재 사용자를 알아낼 방법이 없음
+
+## 스프링 시큐리티 연동
+- 스프링 시큐리티 의존성 추가하기
+  * 스프링 부트 도움 받아 추가하기
+    * 스타터(Starter) 사용
+    * 버전 생략 - 스프링 부트의 의존성 관리 기능 사용
+
+  ```xml
+  <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+  </dependency>
+  ```
+  
+- 스프링 시큐리티 의존성을 추가하고 나면
+  * 모든 요청은 인증을 필요로 합니다.
+  * 기본 유저가 생성됩니다.
+    * Username: user
+    * Password: 콘솔에 출력된 문자열 확인
+
+  ```dash
+  2022-02-17 21:20:27.533  INFO 69764 --- [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+  
+  Using generated security password: c16c13c2-8ae3-4801-916b-e5319e624bf2
+  ```
+  
+- 해결된 문제
+  * 인증을 할 수 있다.
+  * 현재 사용자 정보를 알 수 있다.
+- 새로운 문제
+  * 인증없이 접근 가능한 URL을 설정하고 싶다.
+  * 이 애플리케이션을 사용할 수 있는 유저 계정이 그럼 하나 뿐인가?
+  * 비밀번호가 로그에 남는다고?
