@@ -230,3 +230,31 @@ public class AccountService implements UserDetailsService {
 - 새로운 문제
   * “{noop}”을 없앨 수는 없을까?
   * 테스트는 매번 이렇게 해야 하는건가?
+
+## 스프링 시큐리티 커스터마이징: PasswordEncoder
+- 비밀번호는 반드시 인코딩해서 저장해야 합니다. 단방향 암호화 알고리즘으로.
+  * 스프링 시큐리티가 제공하는 PasswordEndoer는 특정한 포맷으로 동작함.
+  * {id}encodedPassword
+  * 다양한 해싱 전략의 패스워드를 지원할 수 있다는 장점이 있습니다.
+- // 비추: 비밀번호가 평문 그대로 저장됩니다.
+
+```java
+@Bean
+public PasswordEncoder passwordEncoder() {
+	return NoOpPasswordEncoder.getInstance();
+}
+```
+
+- // 추천: 기본 전략인 bcrypt로 암호화 해서 저장하며 비교할 때는 {id}를 확인해서 다양한 인코딩을 지원합니다.
+
+```java
+@Bean
+public PasswordEncoder passwordEncoder() {
+	return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+}
+```
+
+- 해결한 문제
+  * “{noop}”을 없앴다. 비밀번호가 좀 더 안전해졌다.
+- 남아있는 문제
+  * 테스트는 매번 이렇게 해야 하는건가?
