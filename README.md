@@ -9,3 +9,7 @@
 - 스프링 시큐리티 커스터마이징: PasswordEncoder
 - 스프링 시큐리티 테스트 1
 - 스프링 시큐리티 테스트 2
+
+## 스프링 시큐리티: 아키텍쳐
+
+- SecurityContextHolder와 Authentication
