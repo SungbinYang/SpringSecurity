@@ -15,3 +15,4 @@
 - SecurityContextHolder와 Authentication
 - AuthenticationManager와 Authentication
 - ThreadLocals
+- Authencation과 SecurityContextHodler

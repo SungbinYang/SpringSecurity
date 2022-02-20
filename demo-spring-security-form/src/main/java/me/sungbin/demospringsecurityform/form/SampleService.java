@@ -1,8 +1,9 @@
 package me.sungbin.demospringsecurityform.form;
 
 import lombok.extern.slf4j.Slf4j;
-import me.sungbin.demospringsecurityform.account.Account;
-import me.sungbin.demospringsecurityform.account.AccountContext;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,8 +23,10 @@ import org.springframework.stereotype.Service;
 public class SampleService {
 
     public void dashboard() {
-        Account account = AccountContext.getAccount();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails principal = (UserDetails) authentication.getPrincipal();
         log.info("===================================");
-        log.info(account.getUsername());
+        log.info(authentication.toString());
+        log.info(principal.getUsername());
     }
 }
