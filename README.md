@@ -13,3 +13,4 @@
 ## 스프링 시큐리티: 아키텍쳐
 
 - SecurityContextHolder와 Authentication
+- AuthenticationManager와 Authentication
