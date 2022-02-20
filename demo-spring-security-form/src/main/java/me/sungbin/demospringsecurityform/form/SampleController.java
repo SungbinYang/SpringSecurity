@@ -1,6 +1,8 @@
 package me.sungbin.demospringsecurityform.form;
 
 import lombok.RequiredArgsConstructor;
+import me.sungbin.demospringsecurityform.account.AccountContext;
+import me.sungbin.demospringsecurityform.account.AccountRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +27,8 @@ public class SampleController {
 
     private final SampleService sampleService;
 
+    private final AccountRepository accountRepository;
+
     @GetMapping("/")
     public String index(Model model, Principal principal) {
         if (principal == null) {
@@ -46,6 +50,7 @@ public class SampleController {
     @GetMapping("/dashboard")
     public String dashboard(Model model, Principal principal) {
         model.addAttribute("message", "Hello, " + principal.getName());
+        AccountContext.setAccount(accountRepository.findByUsername(principal.getName()));
         sampleService.dashboard();
 
         return "dashboard";
