@@ -110,10 +110,11 @@ class AccountControllerTest {
     }
 
     private Account createUser(String username, String password) {
-        Account account = new Account();
-        account.setUsername(username);
-        account.setPassword(password);
-        account.setRole("USER");
+        Account account = Account.builder()
+                .username(username)
+                .password(password)
+                .role("USER")
+                .build();
 
         return accountService.createNew(account);
     }
