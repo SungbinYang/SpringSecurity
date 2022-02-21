@@ -399,3 +399,15 @@ public PasswordEncoder passwordEncoder() {
 - 이 모든 필터는 FilterChainProxy가 호출한다.
 
 ![](./img02.png)
+
+## DelegatingFilterProxy와 FilterChainProxy
+- DelegatingFilterProxy
+  * 일반적인 서블릿 필터.
+  * 서블릿 필터 처리를 스프링에 들어있는 빈으로 위임하고 싶을 때 사용하는 서블릿 필터.
+  * 타겟 빈 이름을 설정한다.
+  * 스프링 부트 없이 스프링 시큐리티 설정할 때는 AbstractSecurityWebApplicationInitializer를 사용해서 등록.
+  * 스프링 부트를 사용할 때는 자동으로 등록 된다. (SecurityFilterAutoConfiguration)
+- FilterChainProxy
+  * 보통 “springSecurityFilterChain” 이라는 이름의 빈으로 등록된다.
+
+![](./img03.png)
