@@ -468,3 +468,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 - AccessDecisionManager를 사용하여 Access Control 또는 예외 처리 하는 필터. 대부분의 경우 FilterChainProxy에 제일 마지막 필터로 들어있다.
 
 ![](./img02.png)
+
+## ExceptionTranslationFilter
+- 필터 체인에서 발생하는 AccessDeniedException과 AuthenticationException을 처리하는 필터
+- AuthenticationException 발생 시
+  * AuthenticationEntryPoint 실행
+  * AbstractSecurityInterceptor 하위 클래스(예, FilterSecurityInterceptor)에서 발생하는 예외만 처리.
+  * 그렇다면 UsernamePasswordAuthenticationFilter에서 발생한 인증 에러는?
+- AccessDeniedException 발생 시
+  * 익명 사용자라면 AuthenticationEntryPoint 실행
+  * 익명 사용자가 아니면 AccessDeniedHandler에게 위임
