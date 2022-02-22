@@ -478,3 +478,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 - AccessDeniedException 발생 시
   * 익명 사용자라면 AuthenticationEntryPoint 실행
   * 익명 사용자가 아니면 AccessDeniedHandler에게 위임
+
+## 스프링 시큐리티 아키텍처 정리
+
+![](./img04.png)
+
+- 참고
+  * https://spring.io/guides/topicals/spring-security-architecture
+  * https://docs.spring.io/spring-security/site/docs/5.1.5.RELEASE/reference/htmlsingle/#overall-architecture

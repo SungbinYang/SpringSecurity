@@ -22,3 +22,4 @@
 - AccessDecisionManager 2부
 - FilterSecurityInterceptor
 - ExceptionTranslationFilter
+- 스프링 시큐리티 아키텍처 정리
