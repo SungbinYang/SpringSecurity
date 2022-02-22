@@ -1,8 +1,6 @@
 package me.sungbin.demospringsecurityform.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -19,7 +17,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  */
 
 @Configuration
-@Order(Ordered.LOWEST_PRECEDENCE - 50)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
