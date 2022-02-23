@@ -23,3 +23,7 @@
 - FilterSecurityInterceptor
 - ExceptionTranslationFilter
 - 스프링 시큐리티 아키텍처 정리
+
+## 웹 애플리케이션 시큐리티
+
+- 스프링 시큐리티 ignoring() 1부
