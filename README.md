@@ -28,3 +28,4 @@
 
 - 스프링 시큐리티 ignoring() 1부
 - 스프링 시큐리티 ignoring() 2부
+- Async 웹 MVC를 지원하는 필터: WebAsyncManagerIntegrationFilter
