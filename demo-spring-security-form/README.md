@@ -528,3 +528,10 @@ SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHRE
   * @Async를 처리하는 쓰레드에서도 SecurityContext를 공유받을 수 있다.
 - 참고
   * https://docs.oracle.com/javase/7/docs/api/java/lang/InheritableThreadLocal.html
+
+## SecurityContext 영속화 필터: SecurityContextPersistenceFilter
+- SecurityContextRepository를 사용해서 기존의 SecurityContext를 읽어오거나 초기화 한다.
+  * 기본으로 사용하는 전략은 HTTP Session을 사용한다.
+  * [Spring-Session](https://spring.io/projects/spring-session#learn)과 연동하여 세션 클러스터를 구현할 수 있다.
+
+  ![](./img05.png)
