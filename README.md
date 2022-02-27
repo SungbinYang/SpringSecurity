@@ -31,3 +31,4 @@
 - Async 웹 MVC를 지원하는 필터: WebAsyncManagerIntegrationFilter
 - 스프링 시큐리티와 @Async
 - SecurityContext 영속화 필터: SecurityContextPersistenceFilter
+- 시큐리티 관련 헤더 추가하는 필터: HeaderWriterFilter
