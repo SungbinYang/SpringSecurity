@@ -1,6 +1,8 @@
 package me.sungbin.demospringsecurityform.form;
 
 import lombok.extern.slf4j.Slf4j;
+import me.sungbin.demospringsecurityform.common.SecurityLogger;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,5 +30,11 @@ public class SampleService {
         log.info("===================================");
         log.info(authentication.toString());
         log.info(principal.getUsername());
+    }
+
+    @Async
+    public void asyncService() {
+        SecurityLogger.log("Async Service");
+        log.info("Async service is called");
     }
 }
