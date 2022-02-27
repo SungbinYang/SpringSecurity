@@ -585,3 +585,83 @@ SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHRE
   * CSRF 토큰을 사용하여 방지.
 
 ![](./img08.png)
+
+## CSRF 토큰 사용 예제
+- JSP에서 스프링 MVC가 제공하는 <form:form> 태그 또는 타임리프 2.1+ 버전을 사용할 때 폼에 CRSF 히든 필드가 기본으로 생성 됨.
+- Signup.html
+
+```html
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SignUp</title>
+</head>
+<body>
+    <form action="/signup" th:action="@{/signup}" th:object="${account}" method="post">
+        <p>Username: <input type="text" th:field="*{username}" /></p>
+        <p>Password: <input type="text" th:field="*{password}" /></p>
+        <p><input type="submit" value="SignUp" /></p>
+    </form>
+</body>
+</html>
+```
+
+- SignUpController
+
+```java
+@Controller
+@RequestMapping("/signup")
+@RequiredArgsConstructor
+public class SignUpController {
+
+    private final AccountService accountService;
+
+    @GetMapping
+    public String signupForm(Model model) {
+        model.addAttribute("account", new Account());
+
+        return "signup";
+    }
+
+    @PostMapping
+    public String processSignUp(Account account) {
+        account.setRole("USER");
+        accountService.createNew(account);
+
+        return "redirect:/";
+    }
+}
+```
+
+- SignUpControllerTest
+
+```java
+@SpringBootTest
+@AutoConfigureMockMvc
+class SignUpControllerTest {
+
+  @Autowired
+  MockMvc mockMvc;
+
+  @Test
+  @DisplayName("signup 폼으로 보여주는 테스트")
+  void signupForm() throws Exception {
+    this.mockMvc.perform(get("/signup"))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("_csrf")));
+  }
+
+  @Test
+  @DisplayName("폼 서브밋 테스트")
+  void processSignUp() throws Exception {
+    this.mockMvc.perform(post("/signup")
+                    .param("username", "robert")
+                    .param("password", "123")
+                    .with(csrf()))
+            .andDo(print())
+            .andExpect(status().is3xxRedirection());
+  }
+}
+```
