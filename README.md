@@ -42,3 +42,4 @@
 - 요청 캐시 필터: RequestCacheAwareFilter
 - 시큐리티 관련 서블릿 스팩 구현 필터: SecurityContextHolderAwareRequestFilter
 - 익명 인증 필터: AnonymousAuthenticationFilter
+- 세션 관리 필터: SessionManagementFilter
