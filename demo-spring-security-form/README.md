@@ -915,3 +915,30 @@ http.rememberMe()
 
 - 쿠키 플러그인
   * https://chrome.google.com/webstore/detail/editthiscookie/fngmhnnpilhplaeedifhccceomclgfbg?hl=en
+
+## 커스텀 필터 추가하기
+- LoggingFilter.java
+
+```java
+@Slf4j
+public class LoggingFilter extends GenericFilterBean {
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start(((HttpServletRequest) request).getRequestURI());
+
+        chain.doFilter(request, response);
+
+        stopWatch.stop();
+
+        log.info(stopWatch.prettyPrint());
+    }
+}
+```
+
+- 커스텀 필터 추가 설정
+
+```java
+http.addFilterAfter(new LoggingFilter(), UsernamePasswordAuthenticationFilter.class);
+```

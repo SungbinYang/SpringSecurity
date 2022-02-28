@@ -3,6 +3,7 @@ package me.sungbin.demospringsecurityform.config;
 import lombok.RequiredArgsConstructor;
 import me.sungbin.demospringsecurityform.account.AccessDeniedExceptionHandler;
 import me.sungbin.demospringsecurityform.account.AccountService;
+import me.sungbin.demospringsecurityform.common.LoggingFilter;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDecisionManager;
@@ -16,6 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.access.expression.WebExpressionVoter;
+import org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter;
 
 import java.util.List;
 
@@ -58,6 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .addFilterBefore(new LoggingFilter(), WebAsyncManagerIntegrationFilter.class)
                 .authorizeRequests()
                 .mvcMatchers("/", "/info", "/account/**", "/signup").permitAll()
                 .mvcMatchers("/admin").hasRole("ADMIN")
