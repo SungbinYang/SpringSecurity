@@ -39,3 +39,4 @@
 - DefaultLoginPageGeneratingFilter
 - 로그인/로그아웃 폼 커스터마이징
 - Basic 인증 처리 필터: BasicAuthenticationFilter
+- 요청 캐시 필터: RequestCacheAwareFilter
