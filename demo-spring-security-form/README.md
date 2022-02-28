@@ -730,3 +730,71 @@ http
 ```
 
 ![](./img11.png)
+
+## 로그인/로그아웃 폼 커스터마이징
+- https://docs.spring.io/spring-security/site/docs/current/reference/html5/#jc-form
+- login.html
+
+```html
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <div th:if="${param.error}">
+        Invalid username or password
+    </div>
+    <form action="/login" method="post" th:action="@{/login}">
+        <p>Username: <input type="text" name="username" /></p>
+        <p>Password: <input type="password" name="password" /></p>
+        <p><input type="submit" value="Login" /></p>
+    </form>
+</body>
+</html>
+```
+
+- Logout.html
+
+```html
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Logout</title>
+</head>
+<body>
+    <h1>Logout</h1>
+    <form action="/logout" method="post" th:action="@{/logout}">
+        <p><input type="submit" value="Logout" /></p>
+    </form>
+</body>
+</html>
+```
+
+- 시큐리티 설정
+
+```java
+@Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .mvcMatchers("/", "/info", "/account/**", "/signup").permitAll()
+                .mvcMatchers("/admin").hasRole("ADMIN")
+                .mvcMatchers("/user").hasRole("USER")
+//                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                .anyRequest().authenticated()
+                .accessDecisionManager(accessDecisionManager())
+                .and()
+                .formLogin()
+                .loginPage("/login").permitAll()
+                .and()
+                .logout().logoutSuccessUrl("/")
+                .and()
+                .httpBasic();
+
+        SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
+    }
+```
