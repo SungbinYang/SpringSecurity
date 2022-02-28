@@ -819,3 +819,18 @@ http
   * AsyncContext#start(Runnable)
 
 ![](./img12.png)
+
+## 익명 인증 필터: AnonymousAuthenticationFilter
+- https://docs.spring.io/spring-security/site/docs/5.1.5.RELEASE/reference/htmlsingle/#anonymous
+- 현재 SecurityContext에 Authentication이 null이면 “익명 Authentication”을 만들어 넣어주고, null이 아니면 아무일도 하지 않는다.
+- 기본으로 만들어 사용할 “익명 Authentication” 객체를 설정할 수 있다.
+
+```java
+http.anonymous()
+        .principal()
+        .authorities()
+        .key()
+```
+
+- 참고
+  * https://en.wikipedia.org/wiki/Null_object_pattern
