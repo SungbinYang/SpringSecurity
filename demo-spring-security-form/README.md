@@ -693,3 +693,10 @@ http
 ```
 
 ![](./img09.png)
+
+## 폼 인증 처리 필터: UsernamePasswordAuthenticationFilter
+- 폼 로그인을 처리하는 인증 필터
+  * 사용자가 폼에 입력한 username과 password로 Authentcation을 만들고 AuthenticationManager를 사용하여 인증을 시도한다.
+  * AuthenticationManager (ProviderManager)는 여러 AuthenticationProvider를 사용하여 인증을 시도하는데, 그 중에 DaoAuthenticationProvider는 UserDetailsServivce를 사용하여 UserDetails 정보를 가져와 사용자가 입력한 password와 비교한다.
+
+![](./img10.png)
