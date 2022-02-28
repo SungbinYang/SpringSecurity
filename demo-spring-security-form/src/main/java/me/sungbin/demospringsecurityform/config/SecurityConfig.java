@@ -2,6 +2,7 @@ package me.sungbin.demospringsecurityform.config;
 
 import lombok.RequiredArgsConstructor;
 import me.sungbin.demospringsecurityform.account.AccessDeniedExceptionHandler;
+import me.sungbin.demospringsecurityform.account.AccountService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDecisionManager;
@@ -37,6 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final AccessDeniedExceptionHandler accessDeniedExceptionHandler;
 
+    private final AccountService accountService;
+
     public AccessDecisionManager accessDecisionManager() {
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
         roleHierarchy.setHierarchy("ROLE_ADMIN > ROLE_USER");
@@ -66,6 +69,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login").permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/")
+                .and()
+                .rememberMe()
+                .userDetailsService(accountService)
+                .key("remember-me-sample")
                 .and()
                 .httpBasic()
                 .and()

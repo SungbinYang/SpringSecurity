@@ -903,3 +903,15 @@ http.anonymous()
                 .expressionHandler(expressionHandler());
 ```
 
+## 토큰 기반 인증 필터 : RememberMeAuthenticationFilter
+- 세션이 사라지거나 만료가 되더라도 쿠키 또는 DB를 사용하여 저장된 토큰 기반으로 인증을 지원하는 필터
+- RememberMe 설정
+
+```java
+http.rememberMe()
+        .userDetailsService(accountService)
+        .key("remember-me-sample");
+```
+
+- 쿠키 플러그인
+  * https://chrome.google.com/webstore/detail/editthiscookie/fngmhnnpilhplaeedifhccceomclgfbg?hl=en
