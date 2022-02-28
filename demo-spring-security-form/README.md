@@ -798,3 +798,10 @@ http
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
     }
 ```
+
+## Basic 인증 처리 필터: BasicAuthenticationFilter
+- Basic 인증이란?
+  * https://tools.ietf.org/html/rfc7617
+  * 요청 헤더에 username와 password를 실어 보내면 브라우저 또는 서버가 그 값을 읽어서 인증하는 방식. 예) Authorization: Basic QWxhZGRpbjpPcGVuU2VzYW1l (sungbin:123 을 BASE 64)
+  * 보통, 브라우저 기반 요청이 클라이언트의 요청을 처리할 때 자주 사용.
+  * 보안에 취약하기 때문에 반드시 HTTPS를 사용할 것을 권장.
