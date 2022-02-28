@@ -1,5 +1,7 @@
 package me.sungbin.demospringsecurityform.config;
 
+import lombok.RequiredArgsConstructor;
+import me.sungbin.demospringsecurityform.account.AccessDeniedExceptionHandler;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDecisionManager;
@@ -10,7 +12,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.access.expression.WebExpressionVoter;
@@ -31,7 +32,10 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final AccessDeniedExceptionHandler accessDeniedExceptionHandler;
 
     public AccessDecisionManager accessDecisionManager() {
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
@@ -55,7 +59,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/", "/info", "/account/**", "/signup").permitAll()
                 .mvcMatchers("/admin").hasRole("ADMIN")
                 .mvcMatchers("/user").hasRole("USER")
-//                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .anyRequest().authenticated()
                 .accessDecisionManager(accessDecisionManager())
                 .and()
@@ -66,12 +69,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .httpBasic()
                 .and()
-                .sessionManagement()
-                .sessionFixation()
-                .changeSessionId()
-                .invalidSessionUrl("/login")
-                .maximumSessions(1)
-                .maxSessionsPreventsLogin(true);
+                .exceptionHandling()
+                .accessDeniedHandler(accessDeniedExceptionHandler);
+
+        // TODO: ExceptionTranslationFilter -> FilterSecurityInterceptor (AccessDecisionManager, AffirmativeBased)
+        // TODO: AuthenticationException -> AuthenticationEntryPoint
+        // TODO: AccessDeniedException -> AccessDeniedHandler
 
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
     }

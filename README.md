@@ -43,3 +43,4 @@
 - 시큐리티 관련 서블릿 스팩 구현 필터: SecurityContextHolderAwareRequestFilter
 - 익명 인증 필터: AnonymousAuthenticationFilter
 - 세션 관리 필터: SessionManagementFilter
+- 인증/인가 예외 처리 필터: ExceptionTranslationFilter
