@@ -665,3 +665,31 @@ class SignUpControllerTest {
   }
 }
 ```
+
+## 로그아웃 처리 필터: LogoutFilter
+- 여러 LogoutHandler를 사용하여 로그아웃시 필요한 처리를 하며 이후에는 LogoutSuccessHandler를 사용하여 로그아웃 후처리를 한다.
+- LogoutHandler
+  * CsrfLogoutHandler
+  * SecurityContextLogoutHandler
+- LogoutSuccessHandler
+  * SimplUrlLogoutSuccessHandler
+- 로그아웃 필터 설정
+
+```java
+http
+                .authorizeRequests()
+                .mvcMatchers("/", "/info", "/account/**", "/signup").permitAll()
+                .mvcMatchers("/admin").hasRole("ADMIN")
+                .mvcMatchers("/user").hasRole("USER")
+//                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                .anyRequest().authenticated()
+                .accessDecisionManager(accessDecisionManager())
+                .and()
+                .formLogin()
+                .and()
+                .logout().logoutSuccessUrl("/")
+                .and()
+                .httpBasic();
+```
+
+![](./img09.png)

@@ -34,3 +34,4 @@
 - 시큐리티 관련 헤더 추가하는 필터: HeaderWriterFilter
 - CSRF 어택 방지 필터: CsrfFilter
 - CSRF 토큰 사용 예제
+- 로그아웃 처리 필터: LogoutFilter
