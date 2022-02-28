@@ -36,3 +36,4 @@
 - CSRF 토큰 사용 예제
 - 로그아웃 처리 필터: LogoutFilter
 - 폼 인증 처리 필터: UsernamePasswordAuthenticationFilter
+- DefaultLoginPageGeneratingFilter

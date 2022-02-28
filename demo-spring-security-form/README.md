@@ -700,3 +700,33 @@ http
   * AuthenticationManager (ProviderManager)는 여러 AuthenticationProvider를 사용하여 인증을 시도하는데, 그 중에 DaoAuthenticationProvider는 UserDetailsServivce를 사용하여 UserDetails 정보를 가져와 사용자가 입력한 password와 비교한다.
 
 ![](./img10.png)
+
+## DefaultLoginPageGeneratingFilter
+- 기본 로그인 폼 페이지를 생성해주는 필터
+  * GET /login 요청을 처리하는 필터.
+- 로그인 폼 커스터마이징
+
+```java
+@Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .mvcMatchers("/", "/info", "/account/**", "/signup").permitAll()
+                .mvcMatchers("/admin").hasRole("ADMIN")
+                .mvcMatchers("/user").hasRole("USER")
+//                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                .anyRequest().authenticated()
+                .accessDecisionManager(accessDecisionManager())
+                .and()
+                .formLogin()
+                .loginPage("/signin")
+                .and()
+                .logout().logoutSuccessUrl("/")
+                .and()
+                .httpBasic();
+
+        SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
+    }
+```
+
+![](./img11.png)

@@ -59,6 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDecisionManager(accessDecisionManager())
                 .and()
                 .formLogin()
+                .loginPage("/signin")
                 .and()
                 .logout().logoutSuccessUrl("/")
                 .and()
