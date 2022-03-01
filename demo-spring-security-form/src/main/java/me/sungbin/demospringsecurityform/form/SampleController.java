@@ -1,16 +1,15 @@
 package me.sungbin.demospringsecurityform.form;
 
 import lombok.RequiredArgsConstructor;
-import me.sungbin.demospringsecurityform.account.AccountContext;
+import me.sungbin.demospringsecurityform.account.Account;
 import me.sungbin.demospringsecurityform.account.AccountRepository;
+import me.sungbin.demospringsecurityform.common.CurrentUser;
 import me.sungbin.demospringsecurityform.common.SecurityLogger;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.security.Principal;
 import java.util.concurrent.Callable;
 
 /**
@@ -34,11 +33,11 @@ public class SampleController {
     private final AccountRepository accountRepository;
 
     @GetMapping("/")
-    public String index(Model model, Principal principal) {
-        if (principal == null) {
+    public String index(Model model, @CurrentUser Account account) {
+        if (account == null) {
             model.addAttribute("message", "Hello Spring Security");
         } else {
-            model.addAttribute("message", "Hello, " + principal.getName());
+            model.addAttribute("message", "Hello, " + account.getUsername());
         }
 
         return "index";
@@ -52,23 +51,23 @@ public class SampleController {
     }
 
     @GetMapping("/dashboard")
-    public String dashboard(Model model, Principal principal) {
-        model.addAttribute("message", "Hello, " + principal.getName());
+    public String dashboard(Model model, @CurrentUser Account account) {
+        model.addAttribute("message", "Hello, " + account.getUsername());
         sampleService.dashboard();
 
         return "dashboard";
     }
 
     @GetMapping("/admin")
-    public String admin(Model model, Principal principal) {
-        model.addAttribute("message", "Hello Admin, " + principal.getName());
+    public String admin(Model model, @CurrentUser Account account) {
+        model.addAttribute("message", "Hello Admin, " + account.getUsername());
 
         return "admin";
     }
 
     @GetMapping("/user")
-    public String user(Model model, Principal principal) {
-        model.addAttribute("message", "Hello User, " + principal.getName());
+    public String user(Model model, @CurrentUser Account account) {
+        model.addAttribute("message", "Hello User, " + account.getUsername());
 
         return "user";
     }
