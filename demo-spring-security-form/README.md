@@ -942,3 +942,25 @@ public class LoggingFilter extends GenericFilterBean {
 ```java
 http.addFilterAfter(new LoggingFilter(), UsernamePasswordAuthenticationFilter.class);
 ```
+
+## 타임리프 스프링 시큐리티 확장팩
+- 의존성 추가
+
+```xml
+<dependency>
+	<groupId>org.thymeleaf.extras</groupId>
+	<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+</dependency>
+```
+
+- Authentication과 Authorization참조
+
+```html
+<div th:if="${#authorization.expr('isAuthenticated()')}">
+    <h2 th:text="${#authentication.name}"></h2>
+    <a href="/logout" th:href="@{/logout}">Logout</a>
+</div>
+<div th:unless="${#authorization.expr('isAuthenticated()')}">
+    <a href="/login" th:href="@{/login}">Login</a>
+</div>
+```
