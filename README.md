@@ -55,3 +55,4 @@
 - 메소드 시큐리티
 - @AuthenticationPrincipal
 - 스프링 데이터 연동
+- 스프링 시큐리티 마무리
