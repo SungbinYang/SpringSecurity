@@ -6,6 +6,11 @@
     <title>user</title>
 </head>
 <body>
-<h1 th:text="${message}">user</h1>
+    <h1 th:text="${message}">user</h1>
+    <table>
+        <tr th:each="book : ${books}">
+            <td><span th:text="${book.title}">Title</span></td>
+        </tr>
+    </table>
 </body>
 </html>

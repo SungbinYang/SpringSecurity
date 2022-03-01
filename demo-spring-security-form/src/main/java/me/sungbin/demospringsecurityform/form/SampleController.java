@@ -3,6 +3,7 @@ package me.sungbin.demospringsecurityform.form;
 import lombok.RequiredArgsConstructor;
 import me.sungbin.demospringsecurityform.account.Account;
 import me.sungbin.demospringsecurityform.account.AccountRepository;
+import me.sungbin.demospringsecurityform.book.BookRepository;
 import me.sungbin.demospringsecurityform.common.CurrentUser;
 import me.sungbin.demospringsecurityform.common.SecurityLogger;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,8 @@ public class SampleController {
     private final SampleService sampleService;
 
     private final AccountRepository accountRepository;
+
+    private final BookRepository bookRepository;
 
     @GetMapping("/")
     public String index(Model model, @CurrentUser Account account) {
@@ -68,6 +71,7 @@ public class SampleController {
     @GetMapping("/user")
     public String user(Model model, @CurrentUser Account account) {
         model.addAttribute("message", "Hello User, " + account.getUsername());
+        model.addAttribute("books", bookRepository.findCurrentUserBook());
 
         return "user";
     }

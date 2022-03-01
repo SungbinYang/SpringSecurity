@@ -54,3 +54,4 @@
 - sec 네임스페이스
 - 메소드 시큐리티
 - @AuthenticationPrincipal
+- 스프링 데이터 연동
