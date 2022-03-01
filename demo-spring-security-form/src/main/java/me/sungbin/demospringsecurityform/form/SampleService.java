@@ -3,10 +3,14 @@ package me.sungbin.demospringsecurityform.form;
 import lombok.extern.slf4j.Slf4j;
 import me.sungbin.demospringsecurityform.common.SecurityLogger;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.security.RolesAllowed;
 
 /**
  * packageName : me.sungbin.demospringsecurityform.form
@@ -24,6 +28,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SampleService {
 
+    @Secured("ROLE_USER")
     public void dashboard() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails principal = (UserDetails) authentication.getPrincipal();
